@@ -81,42 +81,6 @@
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
     </service>
-    <service id="App\HL\Application\GetClientSuspicious" class="App\HL\Application\GetClientSuspicious" autowire="true" autoconfigure="true"/>
-    <service id="App\HL\Command\GenerateSuspiciousTable" class="App\HL\Command\GenerateSuspiciousTable" autowire="true" autoconfigure="true">
-      <tag name="console.command" command="app:generate-suspicious-table"/>
-      <tag name="console.command"/>
-      <tag name="container.no_preload"/>
-      <argument type="service" id="App\HL\Application\GetClientSuspicious"/>
-      <call method="setName">
-        <argument>app:generate-suspicious-table</argument>
-      </call>
-    </service>
-    <service id="App\HL\Domain\ClientSuspicious" class="App\HL\Domain\ClientSuspicious" autowire="true" autoconfigure="true"/>
-    <service id="App\HL\Infrastructure\CsvClientSuspiciousRepository" class="App\HL\Infrastructure\CsvClientSuspiciousRepository" autowire="true" autoconfigure="true"/>
-    <service id="App\HL\Infrastructure\XmlClientSuspiciousRepository" class="App\HL\Infrastructure\XmlClientSuspiciousRepository" autowire="true" autoconfigure="true"/>
-    <service id="App\PorfolioClients\Application\CustomerCsvCreator" class="App\PorfolioClients\Application\CustomerCsvCreator" autowire="true" autoconfigure="true">
-      <argument type="service" id="App\PorfolioClients\Domain\Service\GetCustomers"/>
-      <argument type="service" id="App\PorfolioClients\Domain\Service\XmlConverter"/>
-    </service>
-    <service id="App\PorfolioClients\Command\GeneratePortfolio" class="App\PorfolioClients\Command\GeneratePortfolio" autowire="true" autoconfigure="true">
-      <tag name="console.command" command="app:generate-portfolio"/>
-      <tag name="console.command"/>
-      <tag name="container.no_preload"/>
-      <argument type="service" id="App\PorfolioClients\Application\CustomerCsvCreator"/>
-      <call method="setName">
-        <argument>app:generate-portfolio</argument>
-      </call>
-    </service>
-    <service id="App\PorfolioClients\Domain\Customer" class="App\PorfolioClients\Domain\Customer" autowire="true" autoconfigure="true"/>
-    <service id="App\PorfolioClients\Domain\Customers" class="App\PorfolioClients\Domain\Customers" autowire="true" autoconfigure="true"/>
-    <service id="App\PorfolioClients\Domain\Exeption\CustomersNotFound" class="App\PorfolioClients\Domain\Exeption\CustomersNotFound" autowire="true" autoconfigure="true"/>
-    <service id="App\PorfolioClients\Domain\Service\GetCustomers" class="App\PorfolioClients\Domain\Service\GetCustomers" autowire="true" autoconfigure="true">
-      <argument type="service" id="App\PorfolioClients\Infrastructure\CustomerApiRepository"/>
-    </service>
-    <service id="App\PorfolioClients\Domain\Service\XmlConverter" class="App\PorfolioClients\Domain\Service\XmlConverter" autowire="true" autoconfigure="true"/>
-    <service id="App\PorfolioClients\Infrastructure\CustomerApiRepository" class="App\PorfolioClients\Infrastructure\CustomerApiRepository" autowire="true" autoconfigure="true">
-      <argument type="service" id="GuzzleHttp\Client"/>
-    </service>
     <service id="App\Shared\Domain\Assert" class="App\Shared\Domain\Assert" autowire="true" autoconfigure="true"/>
     <service id="App\Shared\Domain\Guzzle\Exception\UriNotValid" class="App\Shared\Domain\Guzzle\Exception\UriNotValid" autowire="true" autoconfigure="true"/>
     <service id="App\Shared\Domain\Guzzle\HttpMethod" class="App\Shared\Domain\Guzzle\HttpMethod" autowire="true" autoconfigure="true"/>
@@ -125,7 +89,6 @@
     <service id="App\Shared\Domain\Guzzle\Uri" class="App\Shared\Domain\Guzzle\Uri" autowire="true" autoconfigure="true"/>
     <service id="App\Shared\DomainException" class="App\Shared\DomainException" autowire="true" autoconfigure="true"/>
     <service id="App\Shared\Utils" class="App\Shared\Utils" autowire="true" autoconfigure="true"/>
-    <service id="GuzzleHttp\Client" class="GuzzleHttp\Client" autowire="true" autoconfigure="true"/>
     <service id="controller_resolver" class="Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver">
       <tag name="monolog.logger" channel="request"/>
       <argument type="service" id="service_container"/>
@@ -1595,10 +1558,6 @@
         <argument>Lint a Twig template and outputs encountered errors</argument>
       </call>
     </service>
-    <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\HL\Command\GenerateSuspiciousTable" class="App\HL\Command\GenerateSuspiciousTable" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\HL\Command\GenerateSuspiciousTable" class="App\HL\Command\GenerateSuspiciousTable" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\PorfolioClients\Command\GeneratePortfolio" class="App\PorfolioClients\Command\GeneratePortfolio" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\PorfolioClients\Command\GeneratePortfolio" class="App\PorfolioClients\Command\GeneratePortfolio" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.7nzbL4K" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -1915,10 +1874,8 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.XvH1Xgz"/>
+      <argument type="service" id=".service_locator.wGtd0o3"/>
       <argument type="collection">
-        <argument key="app:generate-suspicious-table">App\HL\Command\GenerateSuspiciousTable</argument>
-        <argument key="app:generate-portfolio">App\PorfolioClients\Command\GeneratePortfolio</argument>
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
         <argument key="cache:clear">console.command.cache_clear</argument>
@@ -1948,11 +1905,9 @@
         <argument key="lint:twig">twig.command.lint</argument>
       </argument>
     </service>
-    <service id=".service_locator.XvH1Xgz" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.wGtd0o3" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\HL\Command\GenerateSuspiciousTable" type="service_closure" id="App\HL\Command\GenerateSuspiciousTable"/>
-        <argument key="App\PorfolioClients\Command\GeneratePortfolio" type="service_closure" id="App\PorfolioClients\Command\GeneratePortfolio"/>
         <argument key="console.command.about" type="service_closure" id=".console.command.about.lazy"/>
         <argument key="console.command.assets_install" type="service_closure" id=".console.command.assets_install.lazy"/>
         <argument key="console.command.cache_clear" type="service_closure" id=".console.command.cache_clear.lazy"/>
@@ -1988,7 +1943,6 @@
         <argument key="Symfony\Bridge\Twig\Extension\HttpKernelRuntime" type="service_closure" id="twig.runtime.httpkernel"/>
       </argument>
     </service>
-    <service id="App\PorfolioClients\Domain\CustomerRepository" alias="App\PorfolioClients\Infrastructure\CustomerApiRepository"/>
     <service id="App\Kernel" alias="kernel" public="true"/>
     <service id="Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface" alias="parameter_bag"/>
     <service id="Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface" alias="parameter_bag"/>
