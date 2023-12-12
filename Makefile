@@ -41,3 +41,7 @@ composer-install: ## Installs composer dependencies
 
 ssh-be: ## bash into the be container
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} bash
+
+.PHONY: tests
+tests:
+	vendor/bin/phpunit --coverage-html=coverage
